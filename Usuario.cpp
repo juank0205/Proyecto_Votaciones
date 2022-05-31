@@ -5,6 +5,167 @@
 #include "HeaderFiles/ListaCandidatos.h"
 #include "HeaderFiles/ListaVotos.h"
 using namespace std;
+void Box (int w,int h){
+	int i,j;
+	putchar(218);
+	for(i=0;i<w-2;i++){
+		putchar(196);
+	}
+	putchar(191);
+	cout<<endl;
+	for(i=0;i<h-2;i++){
+		putchar(179);
+		for(j=0;j<w-2;j++){
+			cout<<"*";
+		}
+		putchar(179);
+		cout<<endl;
+	}
+	putchar(192);
+	for(i=0;i<w-2;i++){
+		putchar(196);
+	}
+	putchar(217);
+}
+void grafico(int i,int n,int porcentajeV){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeV);
+}void graficoRS(int i,int n,int porcentajeRS){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeRS);
+}
+void graficoRC(int i,int n,int porcentajeRC){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeRC);
+}
+void graficoRN(int i,int n,int porcentajeRN){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeRN);
+}
+void graficoEJ(int i,int n,int porcentajeEJ){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeEJ);
+}
+void graficoEA(int i,int n,int porcentajeEA){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeEA);
+}
+void graficoEM(int i,int n,int porcentajeEM){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(hConsole,i);
+    getNombre(n);
+    Box(8,porcentajeEM);
+}
+int porcentajeV(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].votos;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].votos;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
+int porcentajeRS(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].votos;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].sur;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
+int porcentajeRC(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].votos;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].central;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
+int porcentajeRN(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].norte;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].votos;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
+int porcentajeEJ(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].joven;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].votos;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
+int porcentajeEA(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].adulto;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].votos;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
+int porcentajeEM(int n){
+    int i;
+    float tv;
+    float por;
+    float porcentaje;
+    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
+     tv+=listavotos.candidato[i].votos;
+    }
+    porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[n].mayor;
+        porcentaje/=tv;
+        porcentaje*=100;
+         return porcentaje;
+}
 
 //Archivo y lista de usuarios
 FILE *archivoUsuarios;
@@ -192,7 +353,11 @@ void menuVotante(int numeroUsuario){
                         op = 0;
                     }
                 }else{
-                    cout << "El usuario aun no ha seleccionado un candidato." << endl;
+                     cout << "__________________________________________________" << endl;
+                    SetConsoleTextAttribute(hConsole,3);
+                    cout << "| El usuario aun no ha seleccionado un candidato.|" << endl;
+                    SetConsoleTextAttribute(hConsole,7);
+                    cout << "__________________________________________________" << endl;
                 }
                 break;
             case 0:
@@ -273,7 +438,11 @@ void menuReportero(){
                 }
                 break;
             case 0:
-                cout << "Regresando..." << endl;
+                 cout << "________________" << endl;
+                SetConsoleTextAttribute(hConsole,3);
+                cout << "|1Regresando...|" << endl;
+                SetConsoleTextAttribute(hConsole,3);
+                cout << "________________" << endl;
                 break;
             default:
                 cout << "_____________________________"<<endl;
@@ -287,27 +456,32 @@ void menuReportero(){
 
 //REGISTRAR NUEVO USUARIO
 void agregarUsuario(){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     char nombre[50];
     int cedula;
     int edad;
     char region[30];
     int clave;
 
-    cout << "Ingrese el nombre del nuevo usuario: ";
+    cout << "______________________________________"<<endl;
+     SetConsoleTextAttribute(hConsole,12);
+    cout << "|Ingrese el nombre del nuevo usuario:|"<<endl;
     fflush(stdin);
     gets(nombre);
-    cout << "Ingrese la cedula: ";
+    cout << "|Ingrese la cedula:                  |"<<endl;
     fflush(stdin);
     cin >> cedula;
-    cout << "Ingrese la edad: ";
+    cout << "|Ingrese la edad:                    |"<<endl;
     fflush(stdin);
     cin >> edad;
-    cout << "Ingrese la region del nuevo usuario: ";
+    cout << "|Ingrese la region del nuevo usuario:|"<<endl;
     fflush(stdin);
     gets(region);
-    cout << "Ingrese la clave: ";
+    cout << "|Ingrese la clave:                   |"<<endl;
     fflush(stdin);
     cin >> clave;
+      SetConsoleTextAttribute(hConsole,7);
+    cout <<"_______________________________________"<<endl;
 
     for (int i=0; i<CANTIDAD_USUARIOS; i++){
         if (listaUsuarios.usuario[i].nombre[0] == '\0'){
@@ -329,30 +503,51 @@ void agregarUsuario(){
 //ELIMINAR USUARIO DE LA ESTRUCTURA
 void eliminarUsuario(){
     int cedula;
-    cout << "Ingrese la cedula a eliminar: ";
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    cout << "________________________________"<<endl;
+      SetConsoleTextAttribute(hConsole,12);
+    cout << "|Ingrese la cedula a eliminar: |"<<endl;
+      SetConsoleTextAttribute(hConsole,7);
+    cout << "________________________________"<<endl;
     cin >> cedula;
 
     for (int i=0; i<CANTIDAD_USUARIOS; i++){
         if (listaUsuarios.usuario[i].nombre[0] != '\0' && listaUsuarios.usuario[i].cedula == cedula){
-            cout << "Corresponde a: " << listaUsuarios.usuario[i].nombre << endl;
-            cout << "Desea eliminarlo? (1. Si, 2. No)" << endl;
+              cout << "_____________________________________________"<<endl;
+              SetConsoleTextAttribute(hConsole,12);
+            cout << "|Corresponde a: " << listaUsuarios.usuario[i].nombre<<"|" << endl;
+            cout << "|Desea eliminarlo? (1. Si, 2. No)           |" << endl;
             cin >> cedula;
+              SetConsoleTextAttribute(hConsole,7);
+            cout << "_____________________________________________" << endl;
             if (cedula == 1){
                 listaUsuarios.usuario[i].nombre[0] = '\0';
                 listaUsuarios.usuario[i].region[0] = '\0';
                 listaUsuarios.usuario[i].cedula = 0;
                 listaUsuarios.usuario[i].edad = 0;
                 system("cls");
-                cout << "Eliminado exitosamente" << endl;
+                cout << "_________________________" << endl;
+                  SetConsoleTextAttribute(hConsole,12);
+                cout << "|Eliminado exitosamente |" << endl;
+                  SetConsoleTextAttribute(hConsole,7);
+                cout << "_________________________" << endl;
                 break; 
             }
             else{
                 system("cls");
-                cout << "No se elimino el usuario" << endl;
+                cout << "___________________________" << endl;
+                  SetConsoleTextAttribute(hConsole,12);
+                cout << "|No se elimino el usuario |" << endl;
+                  SetConsoleTextAttribute(hConsole,7);
+                cout << "___________________________" << endl;
             }
         }
         if (i==CANTIDAD_USUARIOS-1){
-            cout << "No se encontro la cedula" << endl;
+          cout << "__________________________" << endl;
+              SetConsoleTextAttribute(hConsole,12);
+            cout << "|No se encontro la cedula|" << endl;
+              SetConsoleTextAttribute(hConsole,7);
+            cout << "__________________________" << endl;
         }
     }
     actualizarArchivo();
@@ -363,32 +558,53 @@ void cambiarClave(){
     int cedula, clave;
     cout << "Ingrese la cedula: ";
     cin >> cedula;
-
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     for (int i=0; i<CANTIDAD_USUARIOS; i++){
         if (listaUsuarios.usuario[i].nombre[0] != '\0' && listaUsuarios.usuario[i].cedula == cedula){
-            cout << "Corresponde a: " << listaUsuarios.usuario[i].nombre << endl;
-            cout << "Desea cambiar su clave? (1. Si, 2. No)" << endl;
+            cout << "_____________________________________________" << endl;
+            SetConsoleTextAttribute(hConsole,12);
+            cout << "|Corresponde a: " << listaUsuarios.usuario[i].nombre<<"|" << endl;
+            cout << "|Desea cambiar su clave? (1. Si, 2. No)     |" << endl;
+            SetConsoleTextAttribute(hConsole,7);
+            cout << "_____________________________________________" << endl;
             cin >> cedula;
             if (cedula == 1){
-                cout << "Ingrese su nueva clave: ";
+                cout << "__________________________"<<endl;
+                SetConsoleTextAttribute(hConsole,12);
+                cout << "|Ingrese su nueva clave: |"<<endl;
+                SetConsoleTextAttribute(hConsole,7);
+                cout << "__________________________"<<endl;
                 cin >> clave;
                 listaUsuarios.usuario[i].clave = clave;
                 system("cls");
-                cout << "Clave cambiada exitosamente" << endl;
+                cout << "_____________________________" << endl;
+                SetConsoleTextAttribute(hConsole,12);
+                cout << "|Clave cambiada exitosamente|" << endl;
+                SetConsoleTextAttribute(hConsole,7);
+                cout << "_____________________________" << endl;
                 break;
             }
             else{
                 system("cls");
-                cout << "No se elimino el usuario" << endl;
+                cout << "__________________________" << endl;
+                SetConsoleTextAttribute(hConsole,12);
+                cout << "|No se elimino el usuario|" << endl;
+                SetConsoleTextAttribute(hConsole,7);
+                cout << "__________________________" << endl;
                 break;
             }
         }
         if (i==CANTIDAD_USUARIOS-1){
-            cout << "No se encontro la cedula" << endl;
+            cout << "__________________________" << endl;
+            SetConsoleTextAttribute(hConsole,12);
+            cout << "|No se encontro la cedula|" << endl;
+            SetConsoleTextAttribute(hConsole,7);
+            cout << "__________________________" << endl;
         }
     }
     actualizarArchivo();
 }
+
 
 //ACTUALIZAR ARCHIVO DE USUARIOS
 void actualizarArchivo(){
@@ -404,22 +620,37 @@ void actualizarArchivo(){
 
 //PREGUNTAR POR QUE CANDIDATO VA A VOTAR Y VALIDAR
 int votar(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int voto;
     mostrarListaCandidatos();
-    cout << endl << "Seleccione su candidato: ";
+    cout << endl << "__________________________"<<endl;
+    SetConsoleTextAttribute(hConsole,12);
+    cout << endl << "|Seleccione su candidato:|"<<endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << endl << "__________________________"<<endl;
     cin >> voto;
     system("cls");
     if (voto >= 1 && voto <= 4){
-        cout << "Usted esta votando por: " << voto << endl;
+        cout << "_____________________________" << endl;
+         SetConsoleTextAttribute(hConsole,12);
+        cout << "|Usted esta votando por: " << voto <<"|"<< endl;
+        SetConsoleTextAttribute(hConsole,7);
+        cout << "_____________________________" << endl;
+ 
         return voto;
     }else{
-        cout << "Ingrese un voto valido" << endl;
+        cout << "________________________" << endl;
+        SetConsoleTextAttribute(hConsole,12);
+        cout << "|Ingrese un voto valido|" << endl;
+        SetConsoleTextAttribute(hConsole,7);
+        cout << "________________________" << endl;
         return -1;
     }
 }
 
 //GUARDA EL VOTO EN LA ESTRUCTURA Y EN EL ARCHIVO votos.txt
 int registrarVoto(int cedula, int voto, int numeroUsuario){
+     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int cedulaYaUsada, votoUsado, i=0;
     fopen_s(&archivoVotos, "Datos/votos.txt", "r+");
     fseek(archivoVotos, 0, SEEK_SET);
@@ -428,7 +659,11 @@ int registrarVoto(int cedula, int voto, int numeroUsuario){
         ret=fscanf(archivoVotos, FORMATO_VOTO_OUT, &cedulaYaUsada, &votoUsado);
         i++;
         if (cedulaYaUsada == cedula){
-            cout << "Este usuario ya ha votado, su voto fue por el candidato: " << votoUsado << endl;
+             cout << "____________________________________________________________________________" << endl;
+            SetConsoleTextAttribute(hConsole,12);
+            cout << "|Este usuario ya ha votado, su voto fue por el candidato: " << votoUsado <<"|"<< endl;
+            SetConsoleTextAttribute(hConsole,7);
+            cout << "____________________________________________________________________________" << endl;
             fclose(archivoVotos);
             return -1;
         }
@@ -461,7 +696,11 @@ int registrarVoto(int cedula, int voto, int numeroUsuario){
     fseek(archivoVotos, 0, SEEK_END);
     fprintf_s(archivoVotos, FORMATO_VOTO_IN, cedula, voto);
     fclose(archivoVotos);
-    cout << "Voto registrado exitosamente, cerrando sesion..." << endl;
+     cout << "___________________________________________________" << endl;
+    SetConsoleTextAttribute(hConsole,12);
+    cout << "|Voto registrado exitosamente, cerrando sesion... |" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "___________________________________________________" << endl;
     return 0;
 }
 
