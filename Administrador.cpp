@@ -82,6 +82,7 @@ void menuAdmin(int numeroUsuario){
         cout << "|1. Administrar Usuarios\t|" << endl;
         cout << "|2. Ver estadisticas\t\t|" << endl;
         cout << "|3. Finalizar votaciones\t| " << endl;
+        cout << "|4. Reiniciar votaciones\t| " << endl;
         cout << "|0. Salir\t\t\t|" << endl;
         SetConsoleTextAttribute(hConsole,7);
         cout<<"__________________________________"<<endl;
@@ -113,6 +114,9 @@ void menuAdmin(int numeroUsuario){
                 }
                 system("pause");
                 exit(EXIT_SUCCESS);
+                break;
+            case 4:
+                reiniciarVotos();
                 break;
             case 0:
                 //REGRESAR O SALIR
@@ -185,7 +189,7 @@ void administrarUsuarios(){
     }while(op!=0);
 }
 
-//MENU ADMINISTRAR CANDIDATOS
+//MENU ADMINISTRAR CANDIDATOS - NO SE USA
 void administrarCandidatos(){
     int op;
     do{
@@ -196,7 +200,7 @@ void administrarCandidatos(){
         cout << "| 1. Agregar candidato   |" << endl;
         cout << "| 2. Eliminar candidato  |" << endl;
         cout << "| 0. Volver              |" << endl;
-         SetConsoleTextAttribute(hConsole,7);
+        SetConsoleTextAttribute(hConsole,7);
         cout << "__________________________" << endl;
         cin >> op;
         system("cls");

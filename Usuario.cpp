@@ -1,171 +1,11 @@
 #include <iostream>
 #include <windows.h>
 #include <string.h>
+#include <math.h>
 #include "HeaderFiles/ListaUsuarios.h"
 #include "HeaderFiles/ListaCandidatos.h"
 #include "HeaderFiles/ListaVotos.h"
 using namespace std;
-void Box (int w,int h){
-	int i,j;
-	putchar(218);
-	for(i=0;i<w-2;i++){
-		putchar(196);
-	}
-	putchar(191);
-	cout<<endl;
-	for(i=0;i<h-2;i++){
-		putchar(179);
-		for(j=0;j<w-2;j++){
-			cout<<"*";
-		}
-		putchar(179);
-		cout<<endl;
-	}
-	putchar(192);
-	for(i=0;i<w-2;i++){
-		putchar(196);
-	}
-	putchar(217);
-}
-void grafico(int i,int n,int porcentajeV){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeV);
-}void graficoRS(int i,int n,int porcentajeRS){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeRS);
-}
-void graficoRC(int i,int n,int porcentajeRC){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeRC);
-}
-void graficoRN(int i,int n,int porcentajeRN){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeRN);
-}
-void graficoEJ(int i,int n,int porcentajeEJ){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeEJ);
-}
-void graficoEA(int i,int n,int porcentajeEA){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeEA);
-}
-void graficoEM(int i,int n,int porcentajeEM){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     SetConsoleTextAttribute(hConsole,i);
-    getNombre(n);
-    Box(8,porcentajeEM);
-}
-int porcentajeV(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].votos;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].votos;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
-int porcentajeRS(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].votos;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].sur;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
-int porcentajeRC(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].votos;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].central;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
-int porcentajeRN(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].norte;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].votos;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
-int porcentajeEJ(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].joven;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].votos;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
-int porcentajeEA(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].adulto;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].votos;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
-int porcentajeEM(int n){
-    int i;
-    float tv;
-    float por;
-    float porcentaje;
-    for (i=0;i<CANTIDAD_CANDIDATOS;i++){
-     tv+=listavotos.candidato[i].votos;
-    }
-    porcentaje = 0.0;
-        porcentaje+=listavotos.candidato[n].mayor;
-        porcentaje/=tv;
-        porcentaje*=100;
-         return porcentaje;
-}
 
 //Archivo y lista de usuarios
 FILE *archivoUsuarios;
@@ -249,11 +89,25 @@ void inicListaVotos(){
     fclose(archivoUsuarios);
 }
 
+//REINICIAR LISTA Y ARCHIVO DE VOTOS
+void reiniciarVotos(){
+    fopen_s(&archivoVotos, "Datos/votos.txt", "w+");
+    fclose(archivoVotos);
+    for (int j=0; j<CANTIDAD_CANDIDATOS; j++){
+        listavotos.candidato[j].adulto=0;
+        listavotos.candidato[j].joven=0;
+        listavotos.candidato[j].mayor=0;
+        listavotos.candidato[j].votos=0;
+        listavotos.candidato[j].norte=0;
+        listavotos.candidato[j].sur=0;
+    }
+}
+
 //Imprimir la estructura de usuarios (No necesario)
 void mostrarListaUsuario(){
      
     for (int i=0; i<CANTIDAD_USUARIOS; i++){
-         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         if (listaUsuarios.usuario[i].nombre[0] != '\0'){
             cout<<"___________________________________"<<endl;
             SetConsoleTextAttribute(hConsole,2);
@@ -396,7 +250,7 @@ void menuReportero(){
         cout<<"|1. Candidato con mayoria de votos\t|"<<endl;
         cout<<"|2. Ver tabla de votos actual\t\t|"<<endl;
         cout<<"|3. Ganador por regiones\t\t|"<<endl;
-        cout<<"|4. Ganador por edades\t\t|"<<endl;
+        cout<<"|4. Ganador por edades\t\t\t|"<<endl;
         cout<<"|5. Dos candidatos mejor posicionados\t|"<<endl;
         cout<<"|6. Saber si hay segunda vuelta\t\t|"<<endl;
         cout<<"|0. Salir\t\t\t\t|"<<endl;
@@ -423,24 +277,25 @@ void menuReportero(){
             case 6:
                 if (segundaVuelta() == 1){
                     cout << "_____________________________"<<endl;
-                    SetConsoleTextAttribute(hConsole,1);
+                    SetConsoleTextAttribute(hConsole,10);
                     cout << "Hay segunda vuelta" << endl;
                     SetConsoleTextAttribute(hConsole,7);
                     cout<<"______________________________"<<endl;
                     ganador(1);
                 }else{
                     cout << "_____________________________"<<endl;
-                    SetConsoleTextAttribute(hConsole,1);
+                    SetConsoleTextAttribute(hConsole,10);
                     cout << "No hay segunda vuelta" << endl;
                     SetConsoleTextAttribute(hConsole,7);
                     cout<<"______________________________"<<endl;
                     ganador(0);
                 }
+                system("pause");
                 break;
             case 0:
                  cout << "________________" << endl;
                 SetConsoleTextAttribute(hConsole,3);
-                cout << "|1Regresando...|" << endl;
+                cout << "|Regresando...|" << endl;
                 SetConsoleTextAttribute(hConsole,3);
                 cout << "________________" << endl;
                 break;
@@ -456,7 +311,7 @@ void menuReportero(){
 
 //REGISTRAR NUEVO USUARIO
 void agregarUsuario(){
-     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     char nombre[50];
     int cedula;
     int edad;
@@ -558,7 +413,7 @@ void cambiarClave(){
     int cedula, clave;
     cout << "Ingrese la cedula: ";
     cin >> cedula;
-HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     for (int i=0; i<CANTIDAD_USUARIOS; i++){
         if (listaUsuarios.usuario[i].nombre[0] != '\0' && listaUsuarios.usuario[i].cedula == cedula){
             cout << "_____________________________________________" << endl;
@@ -670,7 +525,7 @@ int registrarVoto(int cedula, int voto, int numeroUsuario){
     }
     fclose(archivoUsuarios);
     listavotos.candidato[voto-1].votos++;
-    //FALTA VERIFICAR SU EDAD Y REGION
+
     switch (listaUsuarios.usuario[numeroUsuario].region[0]){
         case 'C':
             listavotos.candidato[voto-1].central++;
@@ -785,9 +640,111 @@ void mostrarVotos(){
 
 //FUNCIONES DE GANADOR POR CADA REGION
 void gpr(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    cout << "__________________________" << endl;
+    SetConsoleTextAttribute(hConsole,11);
+    cout << "REGION NORTE" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "__________________________" << endl;
+    porcentajeRegionN();
     ganaRegionN();
-    ganaRegionC();
+    system("pause");
+    system("cls");
+    
+    cout << "__________________________" << endl;
+    SetConsoleTextAttribute(hConsole,11);
+    cout << "REGION SUR" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "__________________________" << endl;
+    porcentajeRegionS();
     ganaRegionS();
+    system("pause");
+    system("cls");
+
+    cout << "__________________________" << endl;
+    SetConsoleTextAttribute(hConsole,11);
+    cout << "REGION CENTRAL" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "__________________________" << endl;
+    porcentajeRegionC();
+    ganaRegionC();
+    system("pause");
+    system("cls");
+}
+
+//HISTOGRAMA REGION NORTE
+int porcentajeRegionN(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int totalVotos=0;
+    float porcentaje;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        totalVotos+=listavotos.candidato[i].norte;
+    }
+
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[i].norte;
+        porcentaje/=totalVotos;
+        porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
+        cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
+    }
+    return 0;
+}
+
+//HISTOGRAMA REGION SUR
+int porcentajeRegionS(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int totalVotos=0;
+    float porcentaje;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        totalVotos+=listavotos.candidato[i].sur;
+    }
+
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[i].sur;
+        porcentaje/=totalVotos;
+        porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
+        cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
+    }
+    return 0;
+}
+
+//HISTOGRAMA REGION CENTRAL
+int porcentajeRegionC(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int totalVotos=0;
+    float porcentaje;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        totalVotos+=listavotos.candidato[i].central;
+    }
+
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[i].central;
+        porcentaje/=totalVotos;
+        porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
+        cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
+    }
+    return 0;
 }
 
 //GANADOR REGION NORTE
@@ -907,8 +864,10 @@ void ganaRegionS(){
     cout<<"______________________________"<< endl;
 }
 
-//HISTOGRAMA
+//HISTOGRAMA VOTOS
 int segundaVuelta(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
     bool haySegundaVuelta = true;
     int totalVotos=0;
     float porcentaje;
@@ -916,17 +875,17 @@ int segundaVuelta(){
         totalVotos+=listavotos.candidato[i].votos;
     }
 
-    //ACA VA EL HISTOGRAMA
     for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
-        cout << i << ". ";
-        getNombre(i);
-
-        //LO HICE ASI PARA QUE NO HAYA PROBLEMAS ENTRE LOS TIPOS INT Y FLOAT
         porcentaje = 0.0;
         porcentaje+=listavotos.candidato[i].votos;
         porcentaje/=totalVotos;
         porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
         cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
         if (porcentaje > 51){
             haySegundaVuelta = false;
         }
@@ -939,11 +898,115 @@ int segundaVuelta(){
     return 0;
 }
 
+
 //FUNCIONES GANADOR POR EDAD
 void gpe(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    cout << "__________________________" << endl;
+    SetConsoleTextAttribute(hConsole,11);
+    cout << "JOVENES" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "__________________________" << endl;
+    porcentajeEdadJ();
     ganaEdadJ();
+    system("pause");
+    system("cls");
+
+    cout << "__________________________" << endl;
+    SetConsoleTextAttribute(hConsole,11);
+    cout << "ADULTOS" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "__________________________" << endl;
+    porcentajeEdadA();
     ganaEdadA();
+    system("pause");
+    system("cls");
+
+    cout << "__________________________" << endl;
+    SetConsoleTextAttribute(hConsole,11);
+    cout << "MAYORES" << endl;
+    SetConsoleTextAttribute(hConsole,7);
+    cout << "__________________________" << endl;
     ganaEdadM();
+    porcentajeEdadM();
+    system("pause");
+    system("cls");
+}
+
+//HISTOGRAMA JOVENES
+int porcentajeEdadJ(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int totalVotos=0;
+    float porcentaje;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        totalVotos+=listavotos.candidato[i].joven;
+    }
+
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[i].joven;
+        porcentaje/=totalVotos;
+        porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
+        cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
+    }
+    return 0;
+}
+
+//HISTOGRAMA ADULTOS
+int porcentajeEdadA(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int totalVotos=0;
+    float porcentaje;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        totalVotos+=listavotos.candidato[i].adulto;
+    }
+
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[i].adulto;
+        porcentaje/=totalVotos;
+        porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
+        cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
+    }
+    return 0;
+}
+
+//HISTOGRAMA MAYORES
+int porcentajeEdadM(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int totalVotos=0;
+    float porcentaje;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        totalVotos+=listavotos.candidato[i].mayor;
+    }
+
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        porcentaje = 0.0;
+        porcentaje+=listavotos.candidato[i].mayor;
+        porcentaje/=totalVotos;
+        porcentaje*=100;
+
+        cout << i+1 << ". ";
+        getNombre(i);
+        cout << "Porcentaje: " << porcentaje << "%" << endl;
+        grafico(12, porcentaje);
+        SetConsoleTextAttribute(hConsole,7);
+    }
+    return 0;
 }
 
 //GANADOR JOVENES
@@ -1058,4 +1121,37 @@ void ganaEdadM(){
     getNombre(arregloPosEdad[0]);
     SetConsoleTextAttribute(hConsole,7);
     cout<<"______________________________"<< endl;
+}
+
+void Box (int h,int w){
+	int i,j;
+	putchar(218);
+	for(i=0;i<w-2;i++){
+		putchar(196);
+	}
+	putchar(191);
+	cout<<endl;
+	for(i=0;i<h-2;i++){
+		putchar(179);
+		for(j=0;j<w-2;j++){
+			cout<<"*";
+		}
+		putchar(179);
+		cout<<endl;
+	}
+	putchar(192);
+	for(i=0;i<w-2;i++){
+		putchar(196);
+	}
+	putchar(217);
+    cout << endl;
+}
+
+void grafico(int i,int porcentaje){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole,i);
+    if (porcentaje<0 || isnan(porcentaje)){
+        return;
+    }
+    Box(4,porcentaje);
 }

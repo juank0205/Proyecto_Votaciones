@@ -75,3 +75,10 @@
 	"region": "Sur",
 	"clave":6789
 }
+{
+	"nombre": "Pepe",
+	"cedula":987,
+	"edad":23,
+	"region": "Sur",
+	"clave":9876
+}

@@ -11,6 +11,7 @@ struct ListaUsuarios
 //INICIAR LISTAS
 void inicListaUsuarios();
 void inicListaVotos();
+void reiniciarVotos();
 void mostrarListaUsuario();
 
 //BUSCAR PARA INICIAR SESION
@@ -34,12 +35,22 @@ int registrarVoto(int cedula, int voto, int numeroUsuario);
 //FUNCIONES REPORTERO
 void mostrarVotos();
 void ganador(int n);
+
 void gpr();
+int porcentajeRegionN();
+int porcentajeRegionS();
+int porcentajeRegionC();
 void ganaRegionN();
 void ganaRegionC();
 void ganaRegionS();
 int segundaVuelta();
+
 void gpe();
+int porcentajeEdadJ();
+int porcentajeEdadA();
+int porcentajeEdadM();
 void ganaEdadJ();
 void ganaEdadA();
 void ganaEdadM();
+void Box (int w,int h);
+void grafico(int i,int porcentaje);
