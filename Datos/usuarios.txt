@@ -1,0 +1,35 @@
+{
+	"nombre": "Isabella Barragan",
+	"cedula":1106226360,
+	"edad":17,
+	"region": "Central",
+	"clave":1028
+}
+{
+	"nombre": "Jefferson Echeverry",
+	"cedula":10030164,
+	"edad":44,
+	"region": "Norte",
+	"clave":310
+}
+{
+	"nombre": "Mary Luz Herrera",
+	"cedula":42137909,
+	"edad":42,
+	"region": "Sur",
+	"clave":425
+}
+{
+	"nombre": "Kevin Yesid",
+	"cedula":1324354657,
+	"edad":24,
+	"region": "Central",
+	"clave":1234
+}
+{
+	"nombre": "Cristobal Ochoa",
+	"cedula":1089097158,
+	"edad":18,
+	"region": "Sur",
+	"clave":104
+}

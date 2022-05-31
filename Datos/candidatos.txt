@@ -1,0 +1,24 @@
+{
+    "presidente":"Gustavo Petro",
+    "vicepresidente":"Francia Marquez",
+    "partido":"Pacto historico",
+    "votos":0
+}
+{
+    "presidente":"Federico Gutierrez",
+    "vicepresidente":"Rodrigo Lara",
+    "partido":"Equipo por Colombia",
+    "votos":0
+}
+{
+    "presidente":"Sergio Fajardo",
+    "vicepresidente":"Gilberto Murillo",
+    "partido":"Centro esperanza",
+    "votos":0
+}
+{
+    "presidente":"Voto en blanco",
+    "vicepresidente":" ",
+    "partido":" ",
+    "votos":0
+}
