@@ -231,8 +231,9 @@ void menuReportero(){
         cout<<"|1. Candidato con mayoria de votos\t|"<<endl;
         cout<<"|2. Ver tabla de votos actual\t\t|"<<endl;
         cout<<"|3. Ganador por regiones\t\t|"<<endl;
-        cout<<"|4. Dos candidatos mejor posicionados\t|"<<endl;
-        cout<<"|5. Saber si hay segunda vuelta\t\t|"<<endl;
+        cout<<"|4. Ganador por edades\t\t|"<<endl;
+        cout<<"|5. Dos candidatos mejor posicionados\t|"<<endl;
+        cout<<"|6. Saber si hay segunda vuelta\t\t|"<<endl;
         cout<<"|0. Salir\t\t\t\t|"<<endl;
         SetConsoleTextAttribute(hConsole,7);
         cout<<"________________________________________"<<endl;
@@ -249,13 +250,29 @@ void menuReportero(){
                 gpr();
                 break;
             case 4:
-                ganador(1);
+                gpe();
                 break;
             case 5:
-                segundaVuelta();
+                ganador(1);
+                break;
+            case 6:
+                if (segundaVuelta() == 1){
+                    cout << "_____________________________"<<endl;
+                    SetConsoleTextAttribute(hConsole,1);
+                    cout << "Hay segunda vuelta" << endl;
+                    SetConsoleTextAttribute(hConsole,7);
+                    cout<<"______________________________"<<endl;
+                    ganador(1);
+                }else{
+                    cout << "_____________________________"<<endl;
+                    SetConsoleTextAttribute(hConsole,1);
+                    cout << "No hay segunda vuelta" << endl;
+                    SetConsoleTextAttribute(hConsole,7);
+                    cout<<"______________________________"<<endl;
+                    ganador(0);
+                }
                 break;
             case 0:
-                system("cls");
                 cout << "Regresando..." << endl;
                 break;
             default:
@@ -652,7 +669,8 @@ void ganaRegionS(){
 }
 
 //HISTOGRAMA
-void segundaVuelta(){
+int segundaVuelta(){
+    bool haySegundaVuelta = true;
     int totalVotos=0;
     float porcentaje;
     for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
@@ -670,5 +688,135 @@ void segundaVuelta(){
         porcentaje/=totalVotos;
         porcentaje*=100;
         cout << "Porcentaje: " << porcentaje << "%" << endl;
+        if (porcentaje > 51){
+            haySegundaVuelta = false;
+        }
     }
+
+    if (haySegundaVuelta){
+        return 1;
+    }
+
+    return 0;
+}
+
+//FUNCIONES GANADOR POR EDAD
+void gpe(){
+    ganaEdadJ();
+    ganaEdadA();
+    ganaEdadM();
+}
+
+//GANADOR JOVENES
+void ganaEdadJ(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    int arregloEdad[CANTIDAD_CANDIDATOS];
+    int arregloPosEdad[CANTIDAD_CANDIDATOS];
+    int temp, pos;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        arregloEdad[i] = listavotos.candidato[i].joven;
+        arregloPosEdad[i] = i;
+    }
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        temp = arregloEdad[i];
+        pos = i;
+        for (int j=i-1; j>=0; j--){
+            if (arregloEdad[j] < temp){
+                arregloEdad[j+1] = arregloEdad[j];
+            }else{
+                pos = j+1;
+                break;
+            }
+        }
+        if (pos != i){
+            arregloEdad[i] = arregloEdad[pos];
+            arregloEdad[pos] = temp;
+
+            temp = arregloPosEdad[i];
+            arregloPosEdad[i] = arregloPosEdad[pos];
+            arregloPosEdad[pos] = temp;
+        }
+    }
+    cout << "_____________________________"<< endl;
+    SetConsoleTextAttribute(hConsole,10);
+    cout << "Ganador Jovenes: ";
+    getNombre(arregloPosEdad[0]);
+    SetConsoleTextAttribute(hConsole,7);
+    cout<<"______________________________"<< endl;
+}
+
+//GANADOR ADULTOS
+void ganaEdadA(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    int arregloEdad[CANTIDAD_CANDIDATOS];
+    int arregloPosEdad[CANTIDAD_CANDIDATOS];
+    int temp, pos;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        arregloEdad[i] = listavotos.candidato[i].adulto;
+        arregloPosEdad[i] = i;
+    }
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        temp = arregloEdad[i];
+        pos = i;
+        for (int j=i-1; j>=0; j--){
+            if (arregloEdad[j] < temp){
+                arregloEdad[j+1] = arregloEdad[j];
+            }else{
+                pos = j+1;
+                break;
+            }
+        }
+        if (pos != i){
+            arregloEdad[i] = arregloEdad[pos];
+            arregloEdad[pos] = temp;
+
+            temp = arregloPosEdad[i];
+            arregloPosEdad[i] = arregloPosEdad[pos];
+            arregloPosEdad[pos] = temp;
+        }
+    }
+    cout << "_____________________________"<< endl;
+    SetConsoleTextAttribute(hConsole,10);
+    cout << "Ganador Adulto: ";
+    getNombre(arregloPosEdad[0]);
+    SetConsoleTextAttribute(hConsole,7);
+    cout<<"______________________________"<< endl;
+}
+
+//GANADOR MAYORES
+void ganaEdadM(){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    int arregloEdad[CANTIDAD_CANDIDATOS];
+    int arregloPosEdad[CANTIDAD_CANDIDATOS];
+    int temp, pos;
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        arregloEdad[i] = listavotos.candidato[i].mayor;
+        arregloPosEdad[i] = i;
+    }
+    for (int i=0; i<CANTIDAD_CANDIDATOS; i++){
+        temp = arregloEdad[i];
+        pos = i;
+        for (int j=i-1; j>=0; j--){
+            if (arregloEdad[j] < temp){
+                arregloEdad[j+1] = arregloEdad[j];
+            }else{
+                pos = j+1;
+                break;
+            }
+        }
+        if (pos != i){
+            arregloEdad[i] = arregloEdad[pos];
+            arregloEdad[pos] = temp;
+
+            temp = arregloPosEdad[i];
+            arregloPosEdad[i] = arregloPosEdad[pos];
+            arregloPosEdad[pos] = temp;
+        }
+    }
+    cout << "_____________________________"<< endl;
+    SetConsoleTextAttribute(hConsole,10);
+    cout << "Ganador Mayores: ";
+    getNombre(arregloPosEdad[0]);
+    SetConsoleTextAttribute(hConsole,7);
+    cout<<"______________________________"<< endl;
 }

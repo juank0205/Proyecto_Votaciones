@@ -10,3 +10,27 @@
 	"cedula":42137909,
 	"voto":1,
 }
+{
+	"cedula":1234,
+	"voto":3,
+}
+{
+	"cedula":2345,
+	"voto":3,
+}
+{
+	"cedula":3456,
+	"voto":3,
+}
+{
+	"cedula":4567,
+	"voto":1,
+}
+{
+	"cedula":5678,
+	"voto":2,
+}
+{
+	"cedula":6789,
+	"voto":1,
+}

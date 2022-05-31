@@ -33,3 +33,45 @@
 	"region": "Sur",
 	"clave":104
 }
+{
+	"nombre": "Usuario1",
+	"cedula":1234,
+	"edad":90,
+	"region": "Norte",
+	"clave":1234
+}
+{
+	"nombre": "Usuario2",
+	"cedula":2345,
+	"edad":35,
+	"region": "Sur",
+	"clave":2345
+}
+{
+	"nombre": "Usuario3",
+	"cedula":3456,
+	"edad":32,
+	"region": "Norte",
+	"clave":3456
+}
+{
+	"nombre": "Usuario4",
+	"cedula":4567,
+	"edad":23,
+	"region": "Norte",
+	"clave":4567
+}
+{
+	"nombre": "Usuario5",
+	"cedula":5678,
+	"edad":46,
+	"region": "Central",
+	"clave":5678
+}
+{
+	"nombre": "Usuario6",
+	"cedula":6789,
+	"edad":80,
+	"region": "Sur",
+	"clave":6789
+}

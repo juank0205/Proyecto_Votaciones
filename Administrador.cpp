@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include <windows.h>
 #include "HeaderFiles/ListaAdministradores.h"
 #include "HeaderFiles/ListaUsuarios.h"
@@ -75,9 +76,8 @@ void menuAdmin(int numeroUsuario){
         cout<<"________________________________" << endl;
         SetConsoleTextAttribute(hConsole,12);
         cout << "|1. Administrar Usuarios\t|" << endl;
-        cout << "|2. Administrar Candidatos\t|" << endl;
-        cout << "|3. Ver estadisticas\t\t|" << endl;
-        cout << "|4. Finalizar votaciones\t| " << endl;
+        cout << "|2. Ver estadisticas\t\t|" << endl;
+        cout << "|3. Finalizar votaciones\t| " << endl;
         cout << "|0. Salir\t\t\t|" << endl;
         SetConsoleTextAttribute(hConsole,7);
         cout<<"__________________________________"<<endl;
@@ -89,13 +89,26 @@ void menuAdmin(int numeroUsuario){
                 administrarUsuarios();
                 break;
             case 2:
-                //ADMINISTRAR CANDIDATOS
+                menuReportero();
                 break;
             case 3:
-                //FUNCIONES ESTADISTICAS
-                break;
-            case 4:
-                //FINALIZAR VOTACIONES NO SE COMO
+                if (segundaVuelta() == 1){
+                    cout << "_____________________________"<<endl;
+                    SetConsoleTextAttribute(hConsole,1);
+                    cout << "Hay segunda vuelta" << endl;
+                    SetConsoleTextAttribute(hConsole,7);
+                    cout<<"______________________________"<<endl;
+                    ganador(1);
+                }else{
+                    cout << "_____________________________"<<endl;
+                    SetConsoleTextAttribute(hConsole,1);
+                    cout << "No hay segunda vuelta" << endl;
+                    SetConsoleTextAttribute(hConsole,7);
+                    cout<<"______________________________"<<endl;
+                    ganador(0);
+                }
+                system("pause");
+                exit(EXIT_SUCCESS);
                 break;
             case 0:
                 //REGRESAR O SALIR
@@ -135,7 +148,7 @@ void administrarUsuarios(){
                 break;
             case 3:
                 cambiarClave();
-                mostrarListaUsuario();
+                cout << "Clave cambiada exitosamente" << endl;
                 break;
             case 0:
                 system("cls");
